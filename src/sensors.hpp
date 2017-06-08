@@ -1,6 +1,7 @@
 #pragma once
 #include <phidget21.h>
 #include <functional>
+#include <iostream>
 namespace ppp
 {
 
@@ -38,21 +39,21 @@ public:
     int get_sensor_count() const
     {
         int c;
-        CPhidgetInterfaceKit_getSensorCount(m_handle, c);
+        CPhidgetInterfaceKit_getSensorCount(m_handle, &c);
         return c;
     }
 
     int get_sensor_value(int idx) const
     {
         int c;
-        CPhidgetInterfaceKit_getSensorValue(m_handle, idx, c);
+        CPhidgetInterfaceKit_getSensorValue(m_handle, idx, &c);
         return c;
     }
 
     int get_sensor_raw_value(int idx) const
     {
         int c;
-        CPhidgetInterfaceKit_getSensorRawValue(m_handle, idx, c);
+        CPhidgetInterfaceKit_getSensorRawValue(m_handle, idx, &c);
         return c;
     }
 
