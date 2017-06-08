@@ -4,13 +4,13 @@
 #include <iostream>
 namespace ppp
 {
-
 struct interface_kit
 {
 public:
-    interface_kit(CPhidgetInterfaceKitHandle h):
-        m_handle{h}
+    interface_kit(int serial)
     {
+        CPhidgetInterfaceKit_create(&m_handle);
+
         CPhidgetInterfaceKit_set_OnInputChange_Handler(
                     m_handle,
                     [] (CPhidgetInterfaceKitHandle, void *userPtr, int index, int st) -> int {
@@ -34,7 +34,18 @@ public:
             if(self.onSensorChange)
                 self.onSensorChange(index, sensorValue);
         }, this);
+
+        CPhidget_open((CPhidgetHandle)m_handle, serial);
     }
+
+    ~interface_kit()
+    {
+      CPhidget_close((CPhidgetHandle)m_handle);
+      CPhidget_delete((CPhidgetHandle)m_handle);
+    }
+
+    CPhidgetHandle get_base_handle() const
+    { return (CPhidgetHandle) m_handle; }
 
     int get_sensor_count() const
     {

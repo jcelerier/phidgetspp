@@ -1,4 +1,4 @@
-#include "../src/phidgetspp.hpp"
+#include <phidgetspp/phidgetspp.hpp>
 #include <thread>
 #include <chrono>
 int main()
